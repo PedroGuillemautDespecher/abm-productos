@@ -1,6 +1,50 @@
 @abm_productos_HostAddress = http://localhost:5201
 
-GET {{abm_productos_HostAddress}}/weatherforecast/
+### 1. Esperado: 200 con los diez productos
+GET {{abm_productos_HostAddress}}/api/products
 Accept: application/json
 
-###
+### 2. Esperado: 200 con el monitor
+GET {{abm_productos_HostAddress}}/api/products/3
+Accept: application/json
+
+### 3. Esperado: 404
+GET {{abm_productos_HostAddress}}/api/products/999
+Accept: application/json
+
+### 4. Esperado: 201 y el producto con su Id asignado
+POST {{abm_productos_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Parlante Bluetooth",
+  "price": 15999.90
+}
+
+### 5. Esperado: el producto nuevo aparece en la lista
+GET {{abm_productos_HostAddress}}/api/products
+Accept: application/json
+
+### 6. Esperado: 204
+PUT {{abm_productos_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Mouse inalambrico gamer",
+  "price": 5499.00
+}
+
+### 7. Esperado: 404
+PUT {{abm_productos_HostAddress}}/api/products/999
+Content-Type: application/json
+
+{
+  "name": "No existe",
+  "price": 100
+}
+
+### 8. Esperado: 204
+DELETE {{abm_productos_HostAddress}}/api/products/2
+
+### 9. Esperado: 404 (el producto 2 ya fue borrado)
+DELETE {{abm_productos_HostAddress}}/api/products/2

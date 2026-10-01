@@ -1,8 +1,9 @@
 using abm_productos.Entities;
+using abm_productos.Repositories.Interfaces;
 
 namespace abm_productos.Repositories.Implementations;
 
-public class ProductRepository
+public class ProductRepository : IProductRepository
 {
     private static List<Product> _products = new()
     {
@@ -30,7 +31,6 @@ public class ProductRepository
 
     public void AddProduct(Product product)
     {
-        // si la lista esta vacia Max() tira excepcion, por eso arranca en 1
         int newId = 1;
         if (_products.Count > 0)
         {

@@ -2,10 +2,11 @@ using abm_productos.Entities;
 using abm_productos.Models.DTOs.Requests;
 using abm_productos.Models.DTOs.Responses;
 using abm_productos.Repositories.Implementations;
+using abm_productos.Services.Interfaces;
 
 namespace abm_productos.Services.Implementations;
 
-public class ProductService
+public class ProductService : IProductService
 {
     private ProductRepository _repository = new ProductRepository();
 
@@ -74,7 +75,6 @@ public class ProductService
         _repository.DeleteProduct(product);
     }
 
-    // mapeo a mano de entidad a DTO, se usa en varios metodos
     private ProductForReadDto MapToReadDto(Product product)
     {
         return new ProductForReadDto
