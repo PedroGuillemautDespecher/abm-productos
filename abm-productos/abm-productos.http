@@ -48,3 +48,42 @@ DELETE {{abm_productos_HostAddress}}/api/products/2
 
 ### 9. Esperado: 404 (el producto 2 ya fue borrado)
 DELETE {{abm_productos_HostAddress}}/api/products/2
+
+### 10. Esperado: 200 con los productos que contienen "teclado"
+GET {{abm_productos_HostAddress}}/api/products/search?name=teclado
+Accept: application/json
+
+### 11. Esperado: 200 con lista vacia
+GET {{abm_productos_HostAddress}}/api/products/search?name=xyz
+Accept: application/json
+
+### 12. Esperado: 200 con Total, AveragePrice y MostExpensiveName
+GET {{abm_productos_HostAddress}}/api/products/stats
+Accept: application/json
+
+### 13. Esperado: 400 con los mensajes de validacion
+POST {{abm_productos_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "",
+  "price": 100
+}
+
+### 14. Esperado: 400 por precio menor o igual a cero
+POST {{abm_productos_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Producto valido",
+  "price": 0
+}
+
+### 15. Esperado: 409 porque el nombre ya existe
+POST {{abm_productos_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Webcam HD",
+  "price": 9999
+}

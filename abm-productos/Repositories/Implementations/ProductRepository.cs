@@ -51,4 +51,11 @@ public class ProductRepository : IProductRepository
     {
         _products.Remove(product);
     }
+
+    public List<Product> SearchProductsByName(string name)
+    {
+        return _products
+            .Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+    }
 }
